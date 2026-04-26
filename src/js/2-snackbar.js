@@ -19,31 +19,31 @@ function handleSubmit(event) {
     new Promise((resolve, reject) => {
         setTimeout(() => {
             if (state === "fulfilled") {
-                resolve(`Fulfilled promise in ${delay}ms`);
+                resolve(delay);
             } else {
-                reject(new Error(`Rejected promise in ${delay}ms`));
+                reject(delay);
             }
         }, delay);
     })
         .then((data) => {
             iziToast.show({
-                message: `✅ ${data}`,
+                message: `✅ Fulfilled promise in ${data}ms`,
                 messageColor: '#FFFFFF',
                 messageSize: '16px',
                 messageLineHeight: '150%',
                 color: '#59A10D',
             });
-            console.log(data);
+            console.log(`Fulfilled promise in ${data}ms`);
         })
         .catch((error) => {
             iziToast.show({
-                message: `❌ ${error.message}`,
+                message: `❌ Rejected promise in ${error}ms`,
                 messageColor: '#FFFFFF',
                 messageSize: '16px',
                 messageLineHeight: '150%',
                 color: '#EF4040',
             });
-            console.log(error);
+            console.log(`Rejected promise in ${error}ms`);
         });
     
     formEl.reset();
