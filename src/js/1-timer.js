@@ -53,7 +53,13 @@ function handleStart() {
         const deltaTime = userSelectedDate - currentTime;
         
         if (deltaTime <= 0) {
+            dataDays.textContent = '00';
+            dataHours.textContent = '00';
+            dataMinutes.textContent = '00';
+            dataSeconds.textContent = '00';
+            
             clearInterval(intervalId);
+            intervalId = null;
             datetimePicker.disabled = false;
             return;
         }

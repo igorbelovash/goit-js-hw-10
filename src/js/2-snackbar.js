@@ -16,32 +16,35 @@ function handleSubmit(event) {
         return;
     }
 
-    setTimeout(() => {
-        new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
             if (state === "fulfilled") {
-                iziToast.show({
-                    message: `✅ Fulfilled promise in ${delay}ms`,
-                    messageColor: '#FFFFFF',
-                    messageSize: '16px',
-                    messageLineHeight: '150%',
-                    color: '#59A10D',
-                });
                 resolve(`Fulfilled promise in ${delay}ms`);
+            } else {
+                reject(new Error(`Rejected promise in ${delay}ms`));
             }
-            else {
-                iziToast.show({
-                    message: `❌ Rejected promise in ${delay}ms`,
-                    messageColor: '#FFFFFF',
-                    messageSize: '16px',
-                    messageLineHeight: '150%',
-                    color: '#EF4040',
-                });
-                reject(new Error(`Rejected promise in ${delay}ms`));  
-            }
+        }, delay);
+    })
+        .then((data) => {
+            iziToast.show({
+                message: `✅ ${data}`,
+                messageColor: '#FFFFFF',
+                messageSize: '16px',
+                messageLineHeight: '150%',
+                color: '#59A10D',
+            });
+            console.log(data);
         })
-            .then((data) => console.log(data))
-            .catch((error) => console.log(error));
-    }, delay)
+        .catch((error) => {
+            iziToast.show({
+                message: `❌ ${error.message}`,
+                messageColor: '#FFFFFF',
+                messageSize: '16px',
+                messageLineHeight: '150%',
+                color: '#EF4040',
+            });
+            console.log(error);
+        });
     
     formEl.reset();
 }
